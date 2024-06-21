@@ -3,14 +3,25 @@
 
 <head>
   <meta charset="utf-8">
-  
+
   <!-- Include Bootstrap CSS -->
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-
+  <!-- Include Fontawesome -->
+  <script src="https://kit.fontawesome.com/239b59e369.js" crossorigin="anonymous"></script>
   <title>Expense-tracker</title>
 </head>
 
 <body>
+  <header>
+
+    {{!-- Navbar --}}
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand fs-2" href="/expenses">家庭記帳本</a>
+      </div>
+    </nav>
+
+  </header>
 
   {{{body}}}
 

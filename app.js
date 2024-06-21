@@ -1,5 +1,6 @@
 const express = require('express')
 const { engine } = require('express-handlebars')
+const expenses = require('./public/jsons/expenses.json').results
 
 const app = express()
 
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/expenses', (req, res) => {
-  res.render('index')
+  res.render('index', { expenses })
 })
 
 app.get('/expenses/new', (req, res) => {

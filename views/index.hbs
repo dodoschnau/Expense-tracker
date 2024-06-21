@@ -1,1 +1,61 @@
-<h1>Example App: Home</h1>
+<div class="container">
+  {{!-- sort --}}
+  <div class="col-2 m-5 border border-2">
+    <div id="sort-form">
+      <select class="form-select fs-5" name="sort" id="sort" onchange="this.form.submit()">
+        <option value="">類別</option>
+        <option value="nameAsc">家居物業</option>
+        <option value="nameDesc">交通出行</option>
+        <option value="category">休閒娛樂</option>
+        <option value="location">餐飲食品</option>
+        <option value="location">其他</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="m-2">
+    <span class="fs-3">總金額 :</span>
+    <span class="ms-2 fs-1">25260</span>
+  </div>
+
+  {{!-- Expenses List --}}
+  <div class="fs-5">
+    <ul class="list-group">
+      {{#each expenses}}
+
+      <li class="list-group-item list-group-item-warning">
+        <div class="row align-items-center">
+          <div class="col">
+            <i class="{{this.icon}}"></i>
+          </div>
+
+          <div class="col">
+            <div>{{this.name}}</div>
+            <div>{{this.date}}</div>
+          </div>
+
+          <div class="col">{{this.amount}}</div>
+
+          {{!-- Edit Button --}}
+          <div class="col-1">
+            <a href="/expenses/{{this.id}}/edit">
+              <i class="fa-solid fa-pen"></i>
+            </a>
+          </div>
+
+          {{!-- Delete Button --}}
+          <div class="col-1">
+            <button class="bg-transparent border border-0">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+
+    <button type="button" class="btn btn-danger mt-3 fs-5">新增支出</button>
+  </div>
+
+
+</div>
