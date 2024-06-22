@@ -4,6 +4,9 @@ const expenses = require('./public/jsons/expenses.json').results
 
 const app = express()
 
+const db = require('./models')
+const Expense = db.Expense
+
 const port = 3000
 
 app.engine('.hbs', engine({ extname: '.hbs' }))
@@ -17,7 +20,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/expenses', (req, res) => {
-  res.render('index', { expenses })
+  return Expense.findAll()
+    .then((expenses) => res.send({ expenses }))
+    .catch((error) => console.log(error))
 })
 
 app.get('/expenses/new', (req, res) => {
