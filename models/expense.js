@@ -14,9 +14,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Expense.init({
-    name: DataTypes.STRING,
-    date: DataTypes.DATE,
-    amount: DataTypes.INTEGER
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    date: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    amount: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    }
   }, {
     sequelize,
     modelName: 'Expense',

@@ -1,6 +1,5 @@
 const express = require('express')
 const { engine } = require('express-handlebars')
-const expenses = require('./public/jsons/expenses.json').results
 
 const app = express()
 
@@ -20,8 +19,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/expenses', (req, res) => {
-  return Expense.findAll()
-    .then((expenses) => res.send({ expenses }))
+  return Expense.findAll({
+    attributes: [`id`, `name`, `date`, `amount`],
+    raw: true
+  })
+    .then((expenses) =>res.render('index', { expenses }))
     .catch((error) => console.log(error))
 })
 
