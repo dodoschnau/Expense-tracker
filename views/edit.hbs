@@ -1,1 +1,67 @@
-<h1>Edit page</h1>
+<div class="container fs-4">
+
+  <h1 class="mt-4 mb-4">Edit This Expense</h1>
+  <div class="mb-4">*為必填欄位</div>
+
+  <div class="card p-3">
+
+    <form action="/expenses/{{expense.id}}?_method=PUT" method="post">
+
+      {{!-- Name --}}
+      <div class="form-group d-flex mb-4 row">
+        <label for="inputName" class="mb-2 col-4">Name*</label>
+        <div class="col-6">
+          <input type="text" class="form-control border border-3" id="inputName" placeholder="e.g. 午餐" name="name"
+            value="{{expense.name}}" required>
+        </div>
+      </div>
+
+      {{!-- Category --}}
+      <div class="form-group d-flex mb-4 row">
+        <label for="categorySelect" class="mb-2 col-4">Category*</label>
+        <div class="col-6">
+          <select class="form-control border border-3" id="categorySelect" name="category">
+            {{!-- if restaurants.category is equal to "中東料理", then this option will be selected. --}}
+            <option value="家居物業" {{#if (eq expense.category "家居物業" )}}selected{{/if}}>家居物業</option>
+            <option value="交通出行" {{#if (eq expense.category "交通出行" )}}selected{{/if}}>交通出行</option>
+            <option value="休閒娛樂" {{#if (eq expense.category "休閒娛樂" )}}selected{{/if}}>休閒娛樂</option>
+            <option value="餐飲食品" {{#if (eq expense.category "餐飲食品" )}}selected{{/if}}>餐飲食品</option>
+            <option value="其他" {{#if (eq expense.category "其他" )}}selected{{/if}}>其他</option>
+          </select>
+        </div>
+      </div>
+
+      {{!-- Date --}}
+      <div class="form-group d-flex mb-4 row">
+        <label for="inputDate" class="mb-2 col-4">Date*</label>
+        <div class="col-6">
+          <input type="date" name="date" class="form-control border border-3" id="inputDate" min="1900-01-01"
+            max="2100-12-31" value="{{expense.date}}" required>
+        </div>
+      </div>
+
+      {{!-- Amount --}}
+      <div class="form-group d-flex mb-4 row">
+        <label for="inputAmount" class="mb-2 col-4">Amount*</label>
+        <div class="col-6">
+          <input type="text" class="form-control border border-3" id="inputAmount" placeholder="e.g. 25000"
+            name="amount" value="{{expense.amount}}" required>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+
+        {{!-- Save Button --}}
+        <button type="submit" class="btn btn-danger">Save</button>
+
+        {{!-- Back Button --}}
+        <a href="/expenses">
+          <button type="button" class="btn btn-info">Back</button>
+        </a>
+
+      </div>
+
+    </form>
+
+  </div>
+</div>

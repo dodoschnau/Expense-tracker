@@ -35,7 +35,7 @@
         <label for="inputDate" class="mb-2 col-4">Date*</label>
         <div class="col-6">
           <input type="date" name="date" class="form-control border border-3" id="inputDate" min="1900-01-01"
-            max="2100-12-31" value="{{date}}" required>
+            max="2100-12-31" required>
         </div>
       </div>
 
@@ -48,10 +48,19 @@
         </div>
       </div>
 
-      {{!-- Create Button --}}
-      <button type="submit" class="btn btn-danger">Create</button>
+      <div class="d-flex justify-content-between">
+
+        {{!-- Create Button --}}
+        <button type="submit" class="btn btn-danger">Create</button>
+
+        {{!-- Back Button --}}
+        <a href="/expenses">
+          <button type="button" class="btn btn-info">Back</button>
+        </a>
+
+      </div>
 
     </form>
-    
+
   </div>
 </div>
