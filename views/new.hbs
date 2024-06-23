@@ -1,1 +1,57 @@
-<h1>New page</h1>
+<div class="container fs-4">
+
+  <h1 class="mt-4 mb-4">Create A New Expense</h1>
+  <div class="mb-4">*為必填欄位</div>
+
+  <div class="card p-3">
+
+    <form action="/expenses" method="post">
+
+      {{!-- Name --}}
+      <div class="form-group d-flex mb-4 row">
+        <label for="inputName" class="mb-2 col-4">Name*</label>
+        <div class="col-6">
+          <input type="text" class="form-control border border-3" id="inputName" placeholder="e.g. 午餐" name="name"
+            required>
+        </div>
+      </div>
+
+      {{!-- Category --}}
+      <div class="form-group d-flex mb-4 row">
+        <label for="categorySelect" class="mb-2 col-4">Category*</label>
+        <div class="col-6">
+          <select class="form-control border border-3" id="categorySelect" name="category">
+            <option>家居物業</option>
+            <option>交通出行</option>
+            <option>休閒娛樂</option>
+            <option>餐飲食品</option>
+            <option>其他</option>
+          </select>
+        </div>
+      </div>
+
+      {{!-- Date --}}
+      <div class="form-group d-flex mb-4 row">
+        <label for="inputDate" class="mb-2 col-4">Date*</label>
+        <div class="col-6">
+          <input type="date" name="date" class="form-control border border-3" id="inputDate" min="1900-01-01"
+            max="2100-12-31" value="{{date}}" required>
+        </div>
+      </div>
+
+      {{!-- Amount --}}
+      <div class="form-group d-flex mb-4 row">
+        <label for="inputAmount" class="mb-2 col-4">Amount*</label>
+        <div class="col-6">
+          <input type="text" class="form-control border border-3" id="inputAmount" placeholder="e.g. 25000"
+            name="amount" required>
+        </div>
+      </div>
+
+      {{!-- Create Button --}}
+      <button type="submit" class="btn btn-danger">Create</button>
+
+    </form>
+    
+  </div>
+</div>

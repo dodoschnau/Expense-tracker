@@ -17,6 +17,7 @@ app.set('view engine', '.hbs')
 app.set('views', './views')
 
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
   res.redirect('/expenses')
@@ -27,7 +28,7 @@ app.get('/expenses', (req, res) => {
     attributes: [`id`, `name`, `date`, `amount`],
     raw: true
   })
-    .then((expenses) =>res.render('index', { expenses }))
+    .then((expenses) => res.render('index', { expenses }))
     .catch((error) => console.log(error))
 })
 
@@ -41,7 +42,10 @@ app.get('/expenses/:id/edit', (req, res) => {
 })
 
 app.post('/expenses', (req, res) => {
-  res.send('Create A Expense Record.')
+  const { name, date, amount } = req.body
+  return Expense.create({ name, date, amount })
+    .then(() => res.redirect('/expenses'))
+    .catch((error) => console.log(error))
 })
 
 app.put('/expenses/:id', (req, res) => {
