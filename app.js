@@ -80,7 +80,9 @@ app.put('/expenses/:id', (req, res) => {
 // Delete A Expense
 app.delete('/expenses/:id', (req, res) => {
   const id = req.params.id
-  res.send('Delete A Expense Record.')
+  return Expense.destroy({ where: { id } })
+    .then(() => res.redirect('/expenses'))
+    .catch((error) => console.log(error))
 })
 
 app.listen(port, () => {

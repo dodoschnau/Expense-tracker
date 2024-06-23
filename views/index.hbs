@@ -45,10 +45,13 @@
 
           {{!-- Delete Button --}}
           <div class="col-1">
-            <button class="bg-transparent border border-0">
-              <i class="fa-solid fa-trash"></i>
-            </button>
+            <form action="/expenses/{{this.id}}?_method=DELETE" method="post">
+              <button type="submit" class="bg-transparent border border-0">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
           </div>
+
         </div>
       </li>
       {{/each}}
