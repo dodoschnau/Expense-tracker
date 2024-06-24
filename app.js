@@ -39,11 +39,24 @@ app.get('/', (req, res) => {
 
 // Get All Expenses
 app.get('/expenses', (req, res) => {
-  return Expense.findAll({
-    attributes: [`id`, `name`, `date`, `amount`],
-    raw: true
-  })
-    .then((expenses) => res.render('index', { expenses }))
+  return Promise.all([
+    Expense.findAll({
+      include: [{
+        model: Category,
+        attributes: [`id`, `name`, `icon`]
+      }],
+      attributes: [`id`, `name`, `date`, `amount`, `categoryId`],
+      raw: true,
+      nest: true
+    }),
+    Category.findAll({
+      attributes: [`id`, `name`, `icon`],
+      raw: true
+    })
+  ])
+    .then(([expenses, categories]) => {
+      res.render('index', { expenses, categories })
+    })
     .catch((error) => console.log(error))
 })
 

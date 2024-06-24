@@ -20,13 +20,17 @@
 
   {{!-- Expenses List --}}
   <div class="fs-5">
+
     <ul class="list-group">
       {{#each expenses}}
 
       <li class="list-group-item list-group-item-warning">
         <div class="row align-items-center">
-          <div class="col">
-            <i class="{{this.icon}}"></i>
+          <div class="row col">
+            <div class="col-4 ms-2">
+              <i class="{{this.Category.icon}}"></i>
+            </div>
+            <div class="col-6">{{this.Category.name}}</div>
           </div>
 
           <div class="col">
@@ -63,6 +67,5 @@
     </a>
 
   </div>
-
 
 </div>
