@@ -63,13 +63,20 @@ app.get('/expenses/new', (req, res) => {
 // Get Index Expense Edit Page
 app.get('/expenses/:id/edit', (req, res) => {
   const id = req.params.id
-  return Expense.findByPk(id, {
-    attributes: [`id`, `name`, `date`, `amount`],
-    raw: true
-  })
-    .then((expense) => {
+  return Promise.all([
+    Expense.findByPk(id, {
+      attributes: [`id`, `name`, `date`, `amount`, `categoryId`],
+      raw: true
+    }),
+    Category.findAll({
+      attributes: [`id`, `name`, `icon`],
+      raw: true
+    })
+  ])
+    .then(([expense, categories]) => {
       expense.date = new Date(expense.date).toISOString().split('T')[0]
-      res.render('edit', { expense })
+      const initialCategory = expense.categoryId
+      res.render('edit', { expense, categories, initialCategory })
     })
     .catch((error) => console.log(error))
 })
@@ -85,8 +92,8 @@ app.post('/expenses', (req, res) => {
 // Edit A Expense
 app.put('/expenses/:id', (req, res) => {
   const id = req.params.id
-  const { name, date, amount } = req.body
-  return Expense.update({ name, date, amount }, { where: { id } })
+  const { name, date, amount, category } = req.body
+  return Expense.update({ name, date, amount, categoryId: category }, { where: { id } })
     .then(() => res.redirect('/expenses'))
     .catch((error) => console.log(error))
 })
