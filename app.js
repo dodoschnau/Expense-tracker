@@ -6,18 +6,24 @@ const app = express()
 
 const db = require('./models')
 const Expense = db.Expense
+const Category = db.Category
 
 const port = 3000
 
 const Handlebars = require("handlebars");
 const MomentHandler = require("handlebars.moment");
+const category = require('./models/category')
 MomentHandler.registerHelpers(Handlebars);
 
 app.engine('.hbs', engine({
   extname: '.hbs',
   helpers: {
     // need to check if 'a' is equal to 'b'
-    eq: (a, b) => a === b
+    eq: (a, b) => a === b,
+    getIcon: (categories, selectedCategoryId) => {
+      const category = categories.find(cat => cat.id == selectedCategoryId)
+      return category ? category.icon : ''
+    }
   }
 }))
 app.set('view engine', '.hbs')
@@ -43,7 +49,15 @@ app.get('/expenses', (req, res) => {
 
 // Get New Page
 app.get('/expenses/new', (req, res) => {
-  res.render('new')
+  return Category.findAll({
+    attributes: [`id`, `name`, `icon`],
+    raw: true
+  })
+    .then((categories) => {
+      const initialCategory = categories.length > 0 ? categories[0].id : null;
+      return res.render('new', { categories, initialCategory })
+    })
+    .catch((error) => console.log(error))
 })
 
 // Get Index Expense Edit Page
@@ -62,8 +76,8 @@ app.get('/expenses/:id/edit', (req, res) => {
 
 // Create A Expense
 app.post('/expenses', (req, res) => {
-  const { name, date, amount } = req.body
-  return Expense.create({ name, date, amount })
+  const { name, date, amount, category } = req.body
+  return Expense.create({ name, date, amount, categoryId: category })
     .then(() => res.redirect('/expenses'))
     .catch((error) => console.log(error))
 })

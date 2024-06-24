@@ -18,14 +18,16 @@
 
       {{!-- Category --}}
       <div class="form-group d-flex mb-4 row">
-        <label for="categorySelect" class="mb-2 col-4">Category*</label>
+        <label for="categorySelect" class="mb-2 col-3">Category*</label>
+        <div class="d-flex col-1 justify-content-end align-items-center">
+          <i id="categoryIcon" class="{{getIcon categories initialCategory}}"></i>
+        </div>
         <div class="col-6">
           <select class="form-control border border-3" id="categorySelect" name="category">
-            <option>家居物業</option>
-            <option>交通出行</option>
-            <option>休閒娛樂</option>
-            <option>餐飲食品</option>
-            <option>其他</option>
+            {{#each categories}}
+            <option value="{{this.id}}" data-icon="{{this.icon}}">{{this.name}}
+            </option>
+            {{/each}}
           </select>
         </div>
       </div>
@@ -64,3 +66,5 @@
 
   </div>
 </div>
+
+<script src="/javascripts/category.js"></script>
