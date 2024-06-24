@@ -52,10 +52,11 @@ app.get('/expenses', (req, res) => {
     Category.findAll({
       attributes: [`id`, `name`, `icon`],
       raw: true
-    })
+    }),
+    Expense.sum('amount')
   ])
-    .then(([expenses, categories]) => {
-      res.render('index', { expenses, categories })
+    .then(([expenses, categories, totalAmount]) => {
+      res.render('index', { expenses, categories, totalAmount })
     })
     .catch((error) => console.log(error))
 })
