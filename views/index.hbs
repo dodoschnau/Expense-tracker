@@ -69,3 +69,39 @@
   </div>
 
 </div>
+
+{{!-- Pagination --}}
+<div class="d-flex justify-content-center mb-5">
+  <ul class="pagination">
+
+    {{!-- Previous Button --}}
+    <form action="/expenses" method="GET" class="d-flex">
+      <li class="page-item me-2">
+        <button type="submit" class="btn btn-secondary {{#if (eq page 1)}}disabled{{/if}}">Previous
+          <input type="hidden" name="page" value="{{prev}}">
+        </button>
+      </li>
+    </form>
+
+    {{!-- Pages --}}
+    {{#each pages}}
+    <form action="/expenses" method="GET" class="d-flex">
+      <li class="page-item page-button me-2">
+        <button type="submit" class="btn {{#if (eq this ../page)}}btn-info{{else}}btn-outline-info{{/if}}">{{this}}
+          <input type="hidden" name="page" value="{{this}}">
+        </button>
+      </li>
+    </form>
+    {{/each}}
+
+    {{!-- Next Button --}}
+    <form action="/expenses" method="GET" class="d-flex">
+      <li class="page-item">
+        <button type="submit" class="btn btn-secondary {{#if (eq page totalPages)}}disabled{{/if}}">Next
+          <input type="hidden" name="page" value="{{next}}">
+        </button>
+      </li>
+    </form>
+
+  </ul>
+</div>

@@ -39,13 +39,19 @@ app.get('/', (req, res) => {
 
 // Get All Expenses
 app.get('/expenses', (req, res) => {
+  const limit = 10
+  const page = parseInt(req.query.page) || 1
+  const offset = (page - 1) * limit
+
   return Promise.all([
-    Expense.findAll({
+    Expense.findAndCountAll({
       include: [{
         model: Category,
         attributes: [`id`, `name`, `icon`]
       }],
       attributes: [`id`, `name`, `date`, `amount`, `categoryId`],
+      offset,
+      limit,
       raw: true,
       nest: true
     }),
@@ -55,8 +61,19 @@ app.get('/expenses', (req, res) => {
     }),
     Expense.sum('amount')
   ])
-    .then(([expenses, categories, totalAmount]) => {
-      res.render('index', { expenses, categories, totalAmount })
+    .then(([{ count, rows }, categories, totalAmount]) => {
+      const totalPages = Math.ceil(count / limit)
+      const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
+      res.render('index', {
+        expenses: rows,
+        categories,
+        totalAmount,
+        page,
+        pages,
+        prev: page > 1 ? page - 1 : 1,
+        next: page < totalPages ? page + 1 : totalPages,
+        totalPages
+      })
     })
     .catch((error) => console.log(error))
 })
