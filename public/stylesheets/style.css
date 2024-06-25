@@ -2,3 +2,8 @@
   position: relative;
   bottom: 10px;
 }
+
+.flash-message {
+  font-size: 25px;
+  margin-top: 40px;
+}
