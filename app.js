@@ -23,7 +23,8 @@ app.engine('.hbs', engine({
     getIcon: (categories, selectedCategoryId) => {
       const category = categories.find(cat => cat.id == selectedCategoryId)
       return category ? category.icon : ''
-    }
+    },
+    toString: (value) => value.toString()
   }
 }))
 app.set('view engine', '.hbs')
@@ -42,6 +43,12 @@ app.get('/expenses', (req, res) => {
   const limit = 10
   const page = parseInt(req.query.page) || 1
   const offset = (page - 1) * limit
+  const sort = req.query.sort || ''
+
+  let whereCondition = {};
+  if (sort) {
+    whereCondition = { categoryId: parseInt(sort) }; // Assuming sort value is category ID
+  }
 
   return Promise.all([
     Expense.findAndCountAll({
@@ -49,6 +56,7 @@ app.get('/expenses', (req, res) => {
         model: Category,
         attributes: [`id`, `name`, `icon`]
       }],
+      where: whereCondition,
       attributes: [`id`, `name`, `date`, `amount`, `categoryId`],
       offset,
       limit,
@@ -59,7 +67,7 @@ app.get('/expenses', (req, res) => {
       attributes: [`id`, `name`, `icon`],
       raw: true
     }),
-    Expense.sum('amount')
+    Expense.sum('amount', { where: whereCondition })
   ])
     .then(([{ count, rows }, categories, totalAmount]) => {
       const totalPages = Math.ceil(count / limit)
@@ -72,8 +80,10 @@ app.get('/expenses', (req, res) => {
         pages,
         prev: page > 1 ? page - 1 : 1,
         next: page < totalPages ? page + 1 : totalPages,
-        totalPages
+        totalPages,
+        sort
       })
+      console.log('rows = ', rows)
     })
     .catch((error) => console.log(error))
 })

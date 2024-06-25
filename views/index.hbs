@@ -1,15 +1,15 @@
 <div class="container">
-  {{!-- sort --}}
+  {{!-- Sort --}}
   <div class="col-2 m-5 border border-2">
     <div id="sort-form">
-      <select class="form-select fs-5" name="sort" id="sort" onchange="this.form.submit()">
-        <option value="">類別</option>
-        <option value="nameAsc">家居物業</option>
-        <option value="nameDesc">交通出行</option>
-        <option value="category">休閒娛樂</option>
-        <option value="location">餐飲食品</option>
-        <option value="location">其他</option>
-      </select>
+      <form action="/expenses" method="GET">
+        <select class="form-select fs-5" name="sort" id="sort" onchange="this.form.submit()">
+          <option value="" {{#if (eq sort '' )}}selected{{/if}}>全部</option>
+          {{#each categories}}
+          <option value="{{this.id}}" {{#if (eq ../sort (toString this.id) )}}selected{{/if}}>{{this.name}}</option>
+          {{/each}}
+        </select>
+      </form>
     </div>
   </div>
 
