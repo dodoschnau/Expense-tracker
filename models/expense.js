@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Expense.belongsTo(models.Category)
+      Expense.belongsTo(models.User)
     }
   }
   Expense.init({
