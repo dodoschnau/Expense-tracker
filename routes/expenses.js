@@ -69,8 +69,9 @@ router.get('/new', (req, res, next) => {
     raw: true
   })
     .then((categories) => {
+      const { sort, page } = req.query
       const initialCategory = categories.length > 0 ? categories[0].id : null;
-      return res.render('new', { categories, initialCategory })
+      return res.render('new', { categories, initialCategory, sort, page })
     })
     .catch((error) => {
       error.errorMessage = 'Failed to get this page! :('
@@ -81,6 +82,7 @@ router.get('/new', (req, res, next) => {
 // Get Index Expense Edit Page
 router.get('/:id/edit', (req, res, next) => {
   const id = req.params.id
+  const { sort, page } = req.query
   return Promise.all([
     Expense.findByPk(id, {
       attributes: [`id`, `name`, `date`, `amount`, `categoryId`],
@@ -98,7 +100,7 @@ router.get('/:id/edit', (req, res, next) => {
       }
       expense.date = new Date(expense.date).toISOString().split('T')[0]
       const initialCategory = expense.categoryId
-      return res.render('edit', { expense, categories, initialCategory })
+      return res.render('edit', { expense, categories, initialCategory, sort, page })
     })
     .catch((error) => {
       error.errorMessage = 'Failed to get this page! :('
@@ -109,10 +111,11 @@ router.get('/:id/edit', (req, res, next) => {
 // Create A Expense
 router.post('/', (req, res, next) => {
   const { name, date, amount, category } = req.body
+  const { sort, page } = req.query
   return Expense.create({ name, date, amount, categoryId: category })
     .then(() => {
       req.flash('success', 'Created successfully!')
-      return res.redirect('/expenses')
+      return res.redirect(`/expenses?sort=${sort}&page=${page}`)
     })
     .catch((error) => {
       error.errorMessage = 'Failed to create this expense! :('
@@ -123,11 +126,12 @@ router.post('/', (req, res, next) => {
 // Edit A Expense
 router.put('/:id', (req, res, next) => {
   const id = req.params.id
+  const { sort, page } = req.query
   const { name, date, amount, category } = req.body
   return Expense.update({ name, date, amount, categoryId: category }, { where: { id } })
     .then(() => {
       req.flash('success', 'Updated successfully!')
-      return res.redirect('/expenses')
+      return res.redirect(`/expenses?sort=${sort}&page=${page}`)
     })
     .catch((error) => {
       error.errorMessage = 'Failed to update this expense! :('
@@ -138,10 +142,11 @@ router.put('/:id', (req, res, next) => {
 // Delete A Expense
 router.delete('/:id', (req, res, next) => {
   const id = req.params.id
+  const { sort, page } = req.query
   return Expense.destroy({ where: { id } })
     .then(() => {
       req.flash('success', 'Deleted successfully!')
-      return res.redirect('/expenses')
+      return res.redirect(`/expenses?sort=${sort}&page=${page}`)
     })
     .catch((error) => {
       error.errorMessage = 'Failed to delete this expense! :('

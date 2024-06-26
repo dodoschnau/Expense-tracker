@@ -45,14 +45,14 @@
 
           {{!-- Edit Button --}}
           <div class="col-1">
-            <a href="/expenses/{{this.id}}/edit">
+            <a href="/expenses/{{this.id}}/edit?sort={{../sort}}&page={{../page}}">
               <i class="fa-solid fa-pen"></i>
             </a>
           </div>
 
           {{!-- Delete Button --}}
           <div class="col-1">
-            <form action="/expenses/{{this.id}}?_method=DELETE" method="post">
+            <form action="/expenses/{{this.id}}?_method=DELETE&sort={{../sort}}&page={{../page}}" method="post">
               <button type="submit" class="bg-transparent border border-0">
                 <i class="fa-solid fa-trash"></i>
               </button>
@@ -65,7 +65,7 @@
     </ul>
 
     {{!-- Create Button --}}
-    <a href="/expenses/new">
+    <a href="/expenses/new?sort={{sort}}&page={{page}}">
       <button type="button" class="btn btn-danger mt-3 fs-5">新增支出</button>
     </a>
 
@@ -82,6 +82,7 @@
       <li class="page-item me-2">
         <button type="submit" class="btn btn-secondary {{#if (eq page 1)}}disabled{{/if}}">Previous
           <input type="hidden" name="page" value="{{prev}}">
+          <input type="hidden" name="sort" value="{{sort}}">
         </button>
       </li>
     </form>
@@ -92,6 +93,7 @@
       <li class="page-item page-button me-2">
         <button type="submit" class="btn {{#if (eq this ../page)}}btn-info{{else}}btn-outline-info{{/if}}">{{this}}
           <input type="hidden" name="page" value="{{this}}">
+          <input type="hidden" name="sort" value="{{../sort}}">
         </button>
       </li>
     </form>
@@ -102,6 +104,7 @@
       <li class="page-item">
         <button type="submit" class="btn btn-secondary {{#if (eq page totalPages)}}disabled{{/if}}">Next
           <input type="hidden" name="page" value="{{next}}">
+          <input type="hidden" name="sort" value="{{sort}}">
         </button>
       </li>
     </form>

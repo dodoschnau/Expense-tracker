@@ -7,7 +7,7 @@
 
   <div class="card p-3">
 
-    <form action="/expenses" method="post">
+    <form action="/expenses?sort={{sort}}&page={{page}}" method="post">
 
       {{!-- Name --}}
       <div class="form-group d-flex mb-4 row">
@@ -58,7 +58,7 @@
         <button type="submit" class="btn btn-danger">Create</button>
 
         {{!-- Back Button --}}
-        <a href="/expenses">
+        <a href="/expenses?sort={{sort}}&page={{page}}">
           <button type="button" class="btn btn-info">Back</button>
         </a>
 
