@@ -8,6 +8,8 @@ const app = express()
 const port = 3000
 
 const messageHandler = require('./middlewares/message-handler.js')
+const errorHandler = require('./middlewares/error-handler.js')
+
 const router = require('./routes')
 
 const db = require('./models')
@@ -48,6 +50,8 @@ app.use(flash())
 app.use(messageHandler)
 
 app.use(router)
+
+app.use(errorHandler)
 
 
 app.listen(port, () => {
