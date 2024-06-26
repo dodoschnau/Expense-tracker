@@ -1,0 +1,46 @@
+<div class="card-container d-flex justify-content-center">
+  <div class="card border-secondary mt-5 mb-3" style="width: 60rem;">
+    <div class="card-header bg-secondary text-white">
+      <div class="d-flex align-items-center fs-2">Register</div>
+    </div>
+    <div class="card-body fs-3">
+      <form action="/users" method="POST">
+        <div>
+          <div>
+            <label for="inputName" class="form-label">Name</label>
+          </div>
+          <input type="text" class="form-control mb-3 border-2" id="inputName" name="userName" placeholder="Enter Username">
+        </div>
+        <div>
+          <div>
+            <label for="inputEmail" class="form-label">Email address</label>
+          </div>
+          <input type="email" class="form-control mb-3 border-2" id="inputEmail" placeholder="Enter Email" name="email">
+        </div>
+        <div>
+          <div>
+            <label for="inputPassword" class="form-label">Password</label>
+          </div>
+          <input type="password" class="form-control mb-3 border-2" id="inputPassword" placeholder="Enter Password"
+            name="password">
+        </div>
+        <div>
+          <div>
+            <label for="inputPasswordConfirm" class="form-label">Confirm Password</label>
+          </div>
+          <input type="password" class="form-control mb-4 border-2" id="inputPasswordConfirm" placeholder="Confirm Password"
+            name="confirmPassword">
+        </div>
+        {{!-- Register Button --}}
+        <button type="submit" class="btn btn-info mb-3 fw-bold">Register</button>
+      </form>
+
+      {{!-- Login Button --}}
+      <div>
+        <span class="me-2 align-middle">Already have an account?</span>
+        <a href="/login" class="btn btn-outline-danger fw-bold border-2">Login</a>
+      </div>
+
+    </div>
+  </div>
+</div>

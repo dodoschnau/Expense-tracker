@@ -1,0 +1,33 @@
+<div class="card-container d-flex justify-content-center">
+  <div class="card border-secondary mt-5 mb-3" style="width: 60rem;">
+    <div class="card-header bg-secondary text-white">
+      <div class="d-flex align-items-center fs-2">Login</div>
+    </div>
+    <div class="card-body fs-3">
+      <form action="/login" method="POST">
+        <div>
+          <div>
+            <label for="loginInputEmail" class="form-label">Email</label>
+          </div>
+          <input type="email" class="form-control mb-3 border-2" id="loginInputEmail" placeholder="Enter Email" name="email"
+            required>
+        </div>
+        <div>
+          <div>
+            <label for="loginInputPassword" class="form-label">Password</label>
+          </div>
+          <input type="password" class="form-control mb-4 border-2" id="loginInputPassword" placeholder="Enter Password"
+            name="password" required>
+        </div>
+        {{!-- Login Button --}}
+        <button type="submit" class="btn btn-info mb-3 fw-bold">Login</button>
+      </form>
+
+      {{!-- Register Button --}}
+      <div>
+        <span class="me-2 align-middle">No account?</span>
+        <a href="/register" class="btn btn-outline-danger fw-bold border-2">Register</a>
+      </div>
+    </div>
+  </div>
+</div>
