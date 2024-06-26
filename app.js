@@ -10,6 +10,11 @@ const port = 3000
 const messageHandler = require('./middlewares/message-handler.js')
 const errorHandler = require('./middlewares/error-handler.js')
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+console.log(process.env.NODE_ENV)
+
 const router = require('./routes')
 
 const db = require('./models')
@@ -41,7 +46,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 app.use(session({
-  secret: 'ThisIsSecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }))
