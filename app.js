@@ -15,11 +15,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 console.log(process.env.NODE_ENV)
 
-const router = require('./routes')
+const passport = require('./config/passport.js')
 
-const db = require('./models')
-const Expense = db.Expense
-const Category = db.Category
+const router = require('./routes')
 
 const Handlebars = require("handlebars");
 const MomentHandler = require("handlebars.moment");
@@ -51,6 +49,8 @@ app.use(session({
   saveUninitialized: false
 }))
 app.use(flash())
+
+app.use(passport.initialize())
 
 app.use(messageHandler)
 

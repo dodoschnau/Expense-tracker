@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const db = require('../models')
+const passport = require('passport')
 const User = db.User
 
 
@@ -20,16 +21,19 @@ router.get('/register', (req, res) => {
 })
 
 // POST Login
-router.post('/login', (req, res) => {
-  const { email, password } = req.body
-
+router.post('/login', (req, res, next) => {
+  const { email, password } = req.body;
   if (!email || !password) {
-    req.flash('error', 'Please fill in all fields.')
-    return res.redirect('back')
+    req.flash('error', 'Please fill in your username and password.');
+    return res.redirect('/login');
   }
-
-  res.send('POST Login')
-})
+  next();
+},
+  passport.authenticate('local', {
+    successRedirect: '/expenses',
+    failureRedirect: '/login',
+    failureFlash: true
+  }))
 
 // POST Logout
 router.post('/logout', (req, res) => {
