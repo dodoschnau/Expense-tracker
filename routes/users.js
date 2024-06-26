@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const bcrypt = require('bcryptjs')
 
 const db = require('../models')
-const { where } = require('sequelize')
 const User = db.User
 
 // Register
@@ -25,7 +25,8 @@ router.post('/', (req, res, next) => {
         req.flash('error', 'Email has already existed.')
         return
       }
-      return User.create({ name, email, password })
+      return bcrypt.hash(password, 10)
+        .then((hash) => User.create({ name, email, password: hash }))
     })
     .then((user) => {
       if (!user) {
