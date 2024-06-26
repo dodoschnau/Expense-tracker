@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
+const db = require('../models')
+const User = db.User
+
 
 router.get('/', (req, res) => {
   res.redirect('/expenses')
@@ -18,6 +21,13 @@ router.get('/register', (req, res) => {
 
 // POST Login
 router.post('/login', (req, res) => {
+  const { email, password } = req.body
+
+  if (!email || !password) {
+    req.flash('error', 'Please fill in all fields.')
+    return res.redirect('back')
+  }
+
   res.send('POST Login')
 })
 

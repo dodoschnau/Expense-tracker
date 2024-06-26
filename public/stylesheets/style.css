@@ -7,3 +7,9 @@
   font-size: 25px;
   margin-top: 40px;
 }
+
+.authenticated-message {
+  position: absolute;
+  top: 35px;
+  right: 20px;
+}

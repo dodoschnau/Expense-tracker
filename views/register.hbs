@@ -4,12 +4,19 @@
       <div class="d-flex align-items-center fs-2">Register</div>
     </div>
     <div class="card-body fs-3">
+
+      {{!-- flash message --}}
+      <div class="authenticated-message">
+        {{> message}}
+      </div>
+
       <form action="/users" method="POST">
         <div>
           <div>
             <label for="inputName" class="form-label">Name</label>
           </div>
-          <input type="text" class="form-control mb-3 border-2" id="inputName" name="userName" placeholder="Enter Username">
+          <input type="text" class="form-control mb-3 border-2" id="inputName" name="name"
+            placeholder="Enter Username">
         </div>
         <div>
           <div>
@@ -28,8 +35,8 @@
           <div>
             <label for="inputPasswordConfirm" class="form-label">Confirm Password</label>
           </div>
-          <input type="password" class="form-control mb-4 border-2" id="inputPasswordConfirm" placeholder="Confirm Password"
-            name="confirmPassword">
+          <input type="password" class="form-control mb-4 border-2" id="inputPasswordConfirm"
+            placeholder="Confirm Password" name="confirmPassword">
         </div>
         {{!-- Register Button --}}
         <button type="submit" class="btn btn-info mb-3 fw-bold">Register</button>
