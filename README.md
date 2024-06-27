@@ -36,7 +36,7 @@ This is an expenses tracker application that allows users to easily browse expen
 
 5. Create the database in MySQL :
     ```sh
-    CREATE DATABASE restaurant
+    CREATE DATABASE expense
     ```
     `Note: Make sure the MySQL server connection settings match those in config/config.json.`
 
