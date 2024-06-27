@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "seed": "npx sequelize db:seed:all",
+    "seed:all": "npx sequelize db:seed --seed 20240622073022-initial-data.js",
+    "seed:cat": " npx sequelize db:seed --seed 20240627063434-categorySeeder.js",
+    "seed:record": "npx sequelize db:seed --seed 20240627063852-recordSeeder.js",
+    "seed:undo": "npx sequelize db:seed:undo --seed 20240622073022-initial-data.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:dev": "cross-env NODE_ENV=development nodemon app.js"
   },

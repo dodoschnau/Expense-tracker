@@ -1,8 +1,6 @@
 'use strict';
 
 const expenses = require('../public/jsons/expenses.json')
-const categories = require('../public/jsons/categories.json')
-
 const bcrypt = require('bcryptjs');
 
 /** @type {import('sequelize-cli').Migration} */
@@ -15,16 +13,7 @@ module.exports = {
 
       transaction = await queryInterface.sequelize.transaction()
 
-      // Insert Categories First
-      await queryInterface.bulkInsert('Categories', categories.results.map(category => ({
-        id: category.id,
-        name: category.name,
-        icon: category.icon,
-        createdAt: new Date,
-        updatedAt: new Date()
-      })), { transaction })
-
-      // Then Insert Users
+      // Insert Users first
       const hash = await bcrypt.hash('12345678', 10)
       await queryInterface.bulkInsert('Users', [
         {
@@ -45,7 +34,7 @@ module.exports = {
         },
       ], { transaction })
 
-      // Insert Expenses Finally
+      // Insert expenses Finally
       await queryInterface.bulkInsert('Expenses', expenses.results.map((expense, index) => ({
         id: expense.id,
         name: expense.name,
@@ -65,9 +54,9 @@ module.exports = {
     }
   },
 
+
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Expenses', null)
     await queryInterface.bulkDelete('Users', null)
-    await queryInterface.bulkDelete('Categories', null)
   }
 };
